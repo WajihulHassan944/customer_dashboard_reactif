@@ -12,7 +12,7 @@ const quotes: Quote[] = [
 
 const QuoteList: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {quotes.map((quote) => (
         <QuoteCard
           key={quote.id}

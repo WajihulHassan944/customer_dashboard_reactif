@@ -1,62 +1,106 @@
-"use client"
+"use client";
 
-import * as React from 'react'
-import { Search, Bell } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import * as React from "react";
+import { Search, Bell, Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const SearchInput = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
-  ({ className, ...props }, ref) => {
-    return (
-      <div className="relative w-[320px]">
-        <input
-          ref={ref}
-          className={cn(
-            'flex w-full rounded-md border border-[gray] px-4 h-[52px] text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-100 focus-visible:border-purple-400 disabled:cursor-not-allowed disabled:opacity-50 transition-all',
-            className
-          )}
-          {...props}
-        />
-        <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-gray" size={20} />
-      </div>
-    )
-  }
-)
+interface NavbarProps {
+  isSidebarOpen: boolean;
+  setSidebarOpen: (open: boolean) => void;
+}
 
-export default function Navbar() {
+const SearchInput = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<"input">
+>(({ className, ...props }, ref) => (
+  <div className="relative w-full max-w-xs md:max-w-sm">
+    <Search
+      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+      size={18}
+    />
+    <input
+      ref={ref}
+      className={cn(
+        "w-full h-11 md:h-[48px] rounded-xl border border-white/20 bg-white/5 backdrop-blur-md pl-11 pr-4 text-sm md:text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400/40 focus:border-purple-400 transition-all",
+        className
+      )}
+      {...props}
+    />
+  </div>
+));
+
+export default function Navbar({ isSidebarOpen, setSidebarOpen }: NavbarProps) {
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+
   return (
-    <nav className="w-full border-b border-[#FAFAFA2A] sticky top-0 z-50">
-      <div className="h-[88px] px-8 flex items-center justify-between">
-        
-        {/* Left: Search Bar */}
-        <SearchInput placeholder="Search" />
+    <nav className="w-full sticky top-0 z-40 backdrop-blur-xl  border-b border-white/10">
+      <div className="flex items-center justify-between px-4 md:px-8 h-[70px] md:h-[88px]">
 
-        {/* Right: Actions */}
-        <div className="flex items-center gap-5">
-          
-          <Button 
-            className="rounded-full bg-[#E5E7EB] hover:bg-gray-300 text-black font-semibold h-11 px-7 shadow-none"
+        {/* Left Section */}
+        <div className="flex items-center gap-3">
+
+          {/* Hamburger */}
+          <button
+            onClick={() => setSidebarOpen(!isSidebarOpen)}
+            className="md:hidden p-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition"
           >
+            {isSidebarOpen ? <X size={20}  /> : <Menu size={20} color="white" />}
+          </button>
+
+          {/* Search */}
+          <div className="hidden sm:block">
+            <SearchInput placeholder="Search here..." />
+          </div>
+        </div>
+
+        {/* Mobile Search (centered clean look) */}
+        <div className="sm:hidden flex-1 mx-3">
+          <SearchInput placeholder="Search..." />
+        </div>
+
+        {/* Right Section */}
+        <div className="flex items-center gap-3 md:gap-5">
+
+          {/* Desktop Home Button */}
+          <Button className="hidden md:flex rounded-full bg-gray-200 text-black hover:bg-white font-medium h-10 px-6 shadow-sm transition">
             Home Page
           </Button>
 
           {/* Notification */}
-          <div className="relative cursor-pointer p-2.5 rounded-full border border-gray hover:bg-gray-50 transition-all">
-            <Bell size={22} className="text-white" />
-            <span className="absolute top-2 right-3 w-2 h-2 bg-black border-2 border-white rounded-full"></span>
+          <div className="relative cursor-pointer p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition">
+            <Bell size={20} className="text-white" />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-600 rounded-full border border-black"></span>
           </div>
 
-          {/* User Avatar - Shadcn */}
-          <div className="cursor-pointer">
-            <Avatar className="h-[40px] w-[41px] ">
+          {/* Avatar */}
+          <div
+            className="cursor-pointer"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            <Avatar className="h-9 w-9 md:h-10 md:w-10 ring-2 ring-white/10">
               <AvatarImage src="https://github.com/shadcn.png" alt="User" />
               <AvatarFallback>UF</AvatarFallback>
             </Avatar>
           </div>
 
+          {/* Mobile Dropdown */}
+          {dropdownOpen && (
+            <div className="absolute right-4 top-[75px] md:hidden w-56 bg-neutral-900 border border-white/10 rounded-xl shadow-2xl p-4 flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-200">
+              
+              <Button className="rounded-full bg-white text-black hover:bg-gray-200 font-medium h-10 w-full">
+                Home Page
+              </Button>
+
+              <div className="flex items-center gap-3 text-white cursor-pointer hover:bg-white/5 p-2 rounded-lg transition">
+                <Bell size={18} />
+                <span className="text-sm">Notifications</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </nav>
-  )
+  );
 }
