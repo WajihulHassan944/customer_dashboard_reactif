@@ -1,21 +1,35 @@
+import React from "react";
+import { useRouter } from "next/navigation";
+
 interface ListCardProps {
   title: string;
   viewAll?: boolean;
   items: string[];
+  route: string; // Pass the route here for View All
 }
 
-const ListCard = ({ title, items }: ListCardProps) => {
+const ListCard = ({ title, items, route }: ListCardProps) => {
+  const router = useRouter();
+
+  // Handler for "View All" click
+  const handleViewAllClick = () => {
+    router.push(route); // Navigate to the respective route
+  };
+
   return (
     <div className="p-4 sm:p-6 bg-neutral-900/60 backdrop-blur-sm rounded-[12px] border border-[#FAFAFA1A] space-y-4 sm:space-y-6">
-      
       {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-neutral-200 text-base sm:text-lg font-semibold">
           {title}
         </h2>
-        <span className="text-xs sm:text-sm text-[#FAFAFA99] font-semibold cursor-pointer whitespace-nowrap">
-          View All
-        </span>
+          <span
+            className="text-xs sm:text-sm text-[#FAFAFA99] font-semibold cursor-pointer whitespace-nowrap"
+            onClick={handleViewAllClick} // Handle the click event for View All
+          >
+            View All
+          </span>
+      
       </div>
 
       {/* Items */}

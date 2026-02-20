@@ -1,6 +1,6 @@
 "use client";
 
-import Management from "@/components/orders/Management";
+import Management from "@/components/order/Management";
 import Header from "@/components/shared/Header";
 import SearchFilter from "@/components/shared/SearchFilter";
 

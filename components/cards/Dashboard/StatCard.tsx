@@ -56,7 +56,7 @@ const StatCard = ({
       {showAction && (
         <button
           onClick={onActionClick}
-          className={`text-sm font-semibold bg-gradient-to-r ${gradient} bg-clip-text text-transparent flex items-center gap-1`}
+          className={`text-sm font-semibold bg-gradient-to-r ${gradient} bg-clip-text text-transparent flex items-center gap-1 cursor-pointer`}
         >
           {actionLabel} →
         </button>

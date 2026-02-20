@@ -5,6 +5,7 @@ import { Search, Bell, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useRouter } from "next/navigation";
 
 interface NavbarProps {
   isSidebarOpen: boolean;
@@ -33,7 +34,7 @@ const SearchInput = React.forwardRef<
 
 export default function Navbar({ isSidebarOpen, setSidebarOpen }: NavbarProps) {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
-
+  const router = useRouter();
   return (
     <nav className="w-full sticky top-0 z-40 backdrop-blur-xl  border-b border-white/10">
       <div className="flex items-center justify-between px-4 md:px-8 h-[70px] md:h-[88px]">
@@ -69,7 +70,7 @@ export default function Navbar({ isSidebarOpen, setSidebarOpen }: NavbarProps) {
           </Button>
 
           {/* Notification */}
-          <div className="relative cursor-pointer p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition">
+          <div onClick={()=>router.push('/notifications/system')} className="relative cursor-pointer p-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition">
             <Bell size={20} className="text-white" />
             <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-600 rounded-full border border-black"></span>
           </div>
@@ -80,7 +81,7 @@ export default function Navbar({ isSidebarOpen, setSidebarOpen }: NavbarProps) {
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
             <Avatar className="h-9 w-9 md:h-10 md:w-10 ring-2 ring-white/10">
-              <AvatarImage src="https://github.com/shadcn.png" alt="User" />
+              <AvatarImage src="/user.svg" alt="User" />
               <AvatarFallback>UF</AvatarFallback>
             </Avatar>
           </div>
