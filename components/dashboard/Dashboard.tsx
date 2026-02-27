@@ -8,7 +8,6 @@ import Header from "../shared/Header";
 import StatCard from "../cards/Dashboard/StatCard";
 import ListCard from "../cards/Dashboard/ListCard";
 import QuickActionCard from "../cards/Dashboard/QuickActionCard";
-import { FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
@@ -34,7 +33,6 @@ const Dashboard = () => {
             <StatCard
               key={i}
               {...item}
-              icon={<FileText size={19} strokeWidth={1.5} />}
               onActionClick={() => handleActionClick(item.route)}
             />
           ))}

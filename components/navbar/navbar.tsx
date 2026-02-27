@@ -11,26 +11,29 @@ interface NavbarProps {
   isSidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
 }
-
 const SearchInput = React.forwardRef<
   HTMLInputElement,
   React.ComponentProps<"input">
 >(({ className, ...props }, ref) => (
-  <div className="relative w-full max-w-xs md:max-w-sm">
-    <Search
-      className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-      size={18}
-    />
+  <div className="relative w-full max-w-sm md:w-[320px]">
     <input
       ref={ref}
       className={cn(
-        "w-full h-11 md:h-[48px] rounded-xl border border-white/20 bg-white/5 backdrop-blur-md pl-11 pr-4 text-sm md:text-base text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400/40 focus:border-purple-400 transition-all",
+        "w-full h-[48px] px-4 pr-12 rounded-md outline outline-1 outline-offset-[-1px] outline-neutral-50/30 bg-transparent text-neutral-50 text-base font-medium font-hk placeholder:text-neutral-50/60 focus:outline-purple-400 transition-all",
         className
       )}
       {...props}
     />
+
+    {/* Right Icon */}
+    <Search
+      size={18}
+      className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-50/60 pointer-events-none"
+    />
   </div>
 ));
+
+
 
 export default function Navbar({ isSidebarOpen, setSidebarOpen }: NavbarProps) {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -52,7 +55,7 @@ export default function Navbar({ isSidebarOpen, setSidebarOpen }: NavbarProps) {
 
           {/* Search */}
           <div className="hidden sm:block">
-            <SearchInput placeholder="Search here..." />
+            <SearchInput placeholder="Search " />
           </div>
         </div>
 

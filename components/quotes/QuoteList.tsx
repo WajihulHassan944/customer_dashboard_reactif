@@ -18,8 +18,16 @@ const QuoteList: React.FC = () => {
           key={quote.id}
           quote={quote}
           actions={[
-            { label: "View Details", onClick: () => alert(`Viewing ${quote.title}`) },
-            quote.status !== "Rejected" && { label: "Accept Quote", onClick: () => alert(`Accepted ${quote.title}`), type: "primary" },
+            {
+              label: "View Details",
+              onClick: () => alert(`Viewing ${quote.title}`),
+              type: quote.status === "Rejected" ? "rejected" : "secondary",
+            },
+            (quote.status !== "Rejected" && quote.status !== "Pending") && {
+              label: "Accept Quote",
+              onClick: () => alert(`Accepted ${quote.title}`),
+              type: "primary",
+            },
           ].filter(Boolean) as any}
         />
       ))}

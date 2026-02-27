@@ -1,20 +1,16 @@
-import React from "react";
+import Image from "next/image";
 
 interface StatCardProps {
   title: string;
   value: string;
   gradient: string;
   bg: string;
-  iconColor?: string;
 
-  // Optional props
-  icon?: React.ReactNode;
+  icon?: string; // now string path
   showAction?: boolean;
   actionLabel?: string;
   onActionClick?: () => void;
-
-  // New optional prop
-  className?: string; // allows passing custom padding or other styles
+  className?: string;
 }
 
 const StatCard = ({
@@ -22,12 +18,11 @@ const StatCard = ({
   value,
   gradient,
   bg,
-  iconColor = "text-white",
   icon,
   showAction = true,
   actionLabel = "View All",
   onActionClick,
-  className = "", // default empty
+  className = "",
 }: StatCardProps) => {
   return (
     <div
@@ -36,18 +31,22 @@ const StatCard = ({
       {/* Top Section */}
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="text-neutral-300 text-sm font-medium font-hk">
+          <h3 className="text-neutral-100 text-xl font-semibold font-hk">
             {title}
           </h3>
-          <p className="text-2xl font-semibold text-neutral-100 mt-1">
-            {value}
-          </p>
+          <p className="text-xl text-neutral-100 mt-1">{value}</p>
         </div>
 
-        {/* Icon Container */}
+        {/* SVG Icon */}
         {icon && (
           <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${bg}`}>
-            <div className={`w-5 h-5 ${iconColor}`}>{icon}</div>
+            <Image
+              src={icon}
+              alt={title}
+              width={20}
+              height={20}
+              className="object-contain"
+            />
           </div>
         )}
       </div>

@@ -42,11 +42,15 @@ const OrderCard = ({
             {price}
           </div>
 
-          <div className="px-3 py-1 rounded-full bg-blue-600 flex items-center justify-center">
-            <span className="text-neutral-50 text-xs font-medium font-hk">
-              {status}
-            </span>
-          </div>
+        <div
+  className={`px-3 py-1 rounded-full flex items-center justify-center ${
+    status === "In Production" ? "bg-[#9C3CD3]" : "bg-blue-600"
+  }`}
+>
+  <span className="text-neutral-50 text-xs font-medium font-hk">
+    {status}
+  </span>
+</div>
         </div>
       </div>
 
@@ -149,7 +153,6 @@ const Management = () => {
             price="$12,500"
             status="In Production"
             progress={45}
-            showTracking
           />
 
           <OrderCard

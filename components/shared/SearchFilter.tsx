@@ -8,12 +8,12 @@ const SearchFilter: React.FC = () => {
     <div className="w-full p-4 bg-neutral-800 rounded-xl outline outline-1 outline-offset-[-1px] outline-neutral-50/10 flex flex-col md:flex-row items-stretch md:items-center gap-3 md:gap-6 justify-start md:justify-between">
 
       {/* Search Box */}
-      <div className="flex-1 flex items-center gap-3 px-3 md:px-4 py-2.5 bg-neutral-800 rounded-md w-full md:max-w-[600px] border border-white/5 md:border-none">
+      <div className="flex-1 flex items-center gap-3 px-3 md:px-4 py-2.5 bg-neutral-800 rounded-md w-full md:max-w-full border border-white/10 ">
         <Search className="w-4 h-4 md:w-5 md:h-5 text-neutral-50/60 flex-shrink-0" />
         <input
           type="text"
           placeholder="Search Quotes..."
-          className="flex-1 bg-transparent text-neutral-50/80 text-sm md:text-base font-medium font-hk outline-none placeholder:text-neutral-50/60"
+          className="flex-1 bg-transparent text-neutral-50/80 text-sm md:text-base font-medium font-hk outline-none placeholder:text-neutral-50/60 "
         />
       </div>
 
